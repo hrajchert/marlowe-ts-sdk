@@ -15,9 +15,13 @@ stats.html
 # created by nix
 result
 source
-dist
+# TODO uncomment: just for testing
+#dist
+packages/**/dist
 test-dist
 
+.cache
+.local
 package-lock.json
 yarn.lock
 # nixago: ignore-linked-files

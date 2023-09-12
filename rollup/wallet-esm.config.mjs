@@ -1,5 +1,4 @@
 import { nodeResolve } from '@rollup/plugin-node-resolve';
-import copy from 'rollup-plugin-copy'
 import commonjs from '@rollup/plugin-commonjs';
 import outputSize from 'rollup-plugin-output-size';
 import { visualizer } from "rollup-plugin-visualizer";
@@ -9,14 +8,13 @@ const nodePlugin = nodeResolve(
     { browser: true
     });
 
-const copyWasm = copy({
-    targets: [
-        { src: 'node_modules/lucid-cardano/esm/src/core/wasm_modules/cardano_multiplatform_lib_web/*.wasm', dest: `${outputDir}/wasm_modules/cardano_multiplatform_lib_web/` },
-        { src: 'node_modules/lucid-cardano/esm/src/core/wasm_modules/cardano_message_signing_web/*.wasm', dest: `${outputDir}/wasm_modules/cardano_message_signing_web/` },
-    ]})
-
 export default {
     input: 'packages/wallet/dist/browser/index.js',
+    external: (id, parentId, isResolved) => {
+      const isExternal = id.includes('lucid-cardano') || id.includes("@marlowe.io");
+      console.error(`id: ${id}, parentId: ${parentId}, isResolved: ${isResolved}, isExternal ${isExternal}` );
+      return isExternal;
+    },
     output: {
         dir: outputDir,
         format: 'esm',
@@ -24,7 +22,6 @@ export default {
     plugins:
         [ nodePlugin
         , commonjs()
-        , copyWasm
         , outputSize()
         , visualizer()],
 }

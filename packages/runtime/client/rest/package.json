@@ -34,8 +34,8 @@
       "types": "./dist/contract/transaction/index.d.ts"
     },
     "./withdrawal": {
-      "import": "./dist/contract/withdrawal/index.js",
-      "types": "./dist/contract/withdrawal/index.d.ts"
+      "import": "./dist/withdrawal/index.js",
+      "types": "./dist/withdrawal/index.d.ts"
     },
     "./contract/*": "./dist/contract/*.js"
   },
