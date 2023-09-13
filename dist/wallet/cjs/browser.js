@@ -1,6 +1,8 @@
-import { C } from 'lucid-cardano';
-import { h as hex, u as utf8 } from './index-a07fe7cc.js';
-import { unTxOutRef, addressBech32, txOutRef, lovelaces, token, assetId, mkPolicyId } from '@marlowe.io/runtime-core';
+'use strict';
+
+var lucidCardano = require('lucid-cardano');
+var index = require('./index-98a0956f.js');
+var runtimeCore = require('@marlowe.io/runtime-core');
 
 class BrowserWalletAPI {
     constructor(extension) {
@@ -13,7 +15,7 @@ class BrowserWalletAPI {
         return new Promise((txConfirm) => {
             const pollingId = setInterval(async () => {
                 const utxos = await self.getUTxOs();
-                const isConfirmed = utxos.filter((utxo) => unTxOutRef(utxo).split("#", 2)[0] == txHash)
+                const isConfirmed = utxos.filter((utxo) => runtimeCore.unTxOutRef(utxo).split("#", 2)[0] == txHash)
                     .length > 0;
                 if (isConfirmed) {
                     clearInterval(pollingId);
@@ -86,16 +88,16 @@ function getAvailableWallets() {
     }
 }
 function deserializeAddress(addressHex) {
-    return addressBech32(C.Address.from_bytes(hex.decode(addressHex)).to_bech32(undefined));
+    return runtimeCore.addressBech32(lucidCardano.C.Address.from_bytes(index.hex.decode(addressHex)).to_bech32(undefined));
 }
 function deserializeTxOutRef(utxoStr) {
-    const utxo = C.TransactionUnspentOutput.from_bytes(hex.decode(utxoStr));
+    const utxo = lucidCardano.C.TransactionUnspentOutput.from_bytes(index.hex.decode(utxoStr));
     const input = JSON.parse(utxo.input().to_json());
-    return txOutRef(input.transaction_id + "#" + input.index);
+    return runtimeCore.txOutRef(input.transaction_id + "#" + input.index);
 }
-const deserializeValue = (value) => C.Value.from_bytes(hex.decode(value));
+const deserializeValue = (value) => lucidCardano.C.Value.from_bytes(index.hex.decode(value));
 const valueToTokens = (value) => {
-    const tokenValues = [lovelaces(valueToLovelaces(value))];
+    const tokenValues = [runtimeCore.lovelaces(valueToLovelaces(value))];
     const multiAsset = value.multiasset();
     if (multiAsset !== undefined) {
         const policies = multiAsset.keys();
@@ -106,8 +108,8 @@ const valueToTokens = (value) => {
                 const policyAssetNames = policyAssets.keys();
                 for (let j = 0; j < policyAssetNames.len(); j += 1) {
                     const assetName = policyAssetNames.get(j);
-                    const quantity = policyAssets.get(assetName) ?? C.BigNum.from_str("0");
-                    tokenValues.push(token(BigInt(quantity.to_str()).valueOf())(assetId(mkPolicyId(policyId.to_hex()))(utf8.decode(assetName.to_bytes()).substring(1) // N.H : investigate why 1 aditional character is returned
+                    const quantity = policyAssets.get(assetName) ?? lucidCardano.C.BigNum.from_str("0");
+                    tokenValues.push(runtimeCore.token(BigInt(quantity.to_str()).valueOf())(runtimeCore.assetId(runtimeCore.mkPolicyId(policyId.to_hex()))(index.utf8.decode(assetName.to_bytes()).substring(1) // N.H : investigate why 1 aditional character is returned
                     )));
                 }
             }
@@ -117,4 +119,5 @@ const valueToTokens = (value) => {
 };
 const valueToLovelaces = (value) => BigInt(value.coin().to_str()).valueOf();
 
-export { createBrowserWallet, getAvailableWallets };
+exports.createBrowserWallet = createBrowserWallet;
+exports.getAvailableWallets = getAvailableWallets;

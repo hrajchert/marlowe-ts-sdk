@@ -3,7 +3,8 @@ import commonjs from "@rollup/plugin-commonjs";
 import outputSize from "rollup-plugin-output-size";
 import { visualizer } from "rollup-plugin-visualizer";
 import path from "path";
-
+import { buildRollupInput, getAllPackageInfo } from "./package-helper.mjs";
+import jsonPlugin from '@rollup/plugin-json';
 const outputDir = "dist/";
 const nodePlugin = nodeResolve({ browser: true });
 
@@ -15,25 +16,29 @@ function isExternal(id, parentId, isResolved) {
   return isExternal;
 }
 
-const plugins = [nodePlugin, commonjs(), outputSize(), visualizer()];
+const plugins = [nodePlugin, commonjs(), jsonPlugin(), outputSize(), visualizer()];
 
-const packageConfig = format => (inputPath, outputPath) => ({
-    input: inputPath,
-    external: isExternal,
-    output: {
-      dir: path.join(outputDir, outputPath, format),
-      format: format,
-    },
-    plugins,
-  });
+const packageConfig = (format) => (packageInfo) => ({
+  input: buildRollupInput(packageInfo),
+  external: isExternal,
+  output: {
+    dir: path.join(outputDir, packageInfo.name, format),
+    format: format,
+  },
+  plugins,
+});
 
-const packagesConfig = {
-  wallet: {
-    browser: "packages/wallet/dist/browser/index.js",
-    api: "packages/wallet/dist/api.js",
-  }
+const packagesInfo = await getAllPackageInfo();
 
-}
+const config = [
+  ...packagesInfo.map(packageConfig("esm")),
+  ...packagesInfo.map(packageConfig("cjs"))
+]
+// console.log(JSON.stringify(config, "", 2));
+// process.exit(0);
+export default config;
+
+/*
 
 export default [
   packageConfig("esm")(
@@ -97,3 +102,4 @@ export default [
     "language-core-v1"
   ),
 ];
+*/
