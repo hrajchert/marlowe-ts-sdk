@@ -5,7 +5,7 @@ import { visualizer } from "rollup-plugin-visualizer";
 import path from "path";
 import { buildRollupInput, getAllPackageInfo } from "./package-helper.mjs";
 import jsonPlugin from '@rollup/plugin-json';
-const outputDir = "dist/";
+
 const nodePlugin = nodeResolve({ browser: true });
 
 function isExternal(id, parentId, isResolved) {
@@ -22,7 +22,7 @@ const packageConfig = (format) => (packageInfo) => ({
   input: buildRollupInput(packageInfo),
   external: isExternal,
   output: {
-    dir: path.join(outputDir, packageInfo.name, format),
+    dir: path.join(packageInfo.location, 'dist', 'bundled', format),
     format: format,
   },
   plugins,

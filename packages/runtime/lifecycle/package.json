@@ -19,38 +19,38 @@
     "build:e2e": "tsc --build test"
   },
   "type": "module",
-  "module": "./dist/index.js",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "module": "./dist/esm/index.js",
+  "main": "./dist/esm/index.js",
+  "types": "./dist/esm/index.d.ts",
   "files": [
     "dist"
   ],
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "import": "./dist/esm/index.js",
+      "types": "./dist/esm/index.d.ts"
     },
     "./api": {
-      "import": "./dist/apis/runtimeLifecycle.js",
-      "types": "./dist/apis/runtimeLifecycle.d.ts"
+      "import": "./dist/esm/apis/runtimeLifecycle.js",
+      "types": "./dist/esm/apis/runtimeLifecycle.d.ts"
     },
     "./overRestAPI": {
-      "import": "./dist/instance/overRestAPI/index.js",
-      "types": "./dist/instance/overRestAPI/index.d.ts"
+      "import": "./dist/esm/instance/overRestAPI/index.js",
+      "types": "./dist/esm/instance/overRestAPI/index.d.ts"
     },
     "./browser": {
-      "import": "./dist/instance/overRestAPI/browser/index.js",
-      "types": "./dist/instance/overRestAPI/browser/index.d.ts"
+      "import": "./dist/esm/instance/overRestAPI/browser/index.js",
+      "types": "./dist/esm/instance/overRestAPI/browser/index.d.ts"
     },
     "./nodejs": {
-      "import": "./dist/instance/overRestAPI/nodejs/index.js",
-      "types": "./dist/instance/overRestAPI/nodejs/index.d.ts"
+      "import": "./dist/esm/instance/overRestAPI/nodejs/index.js",
+      "types": "./dist/esm/instance/overRestAPI/nodejs/index.d.ts"
     },
-    "./common/*": "./dist/common/*.js",
-    "./wallet/*": "./dist/wallet/*.js",
+    "./common/*": "./dist/esm/common/*.js",
+    "./wallet/*": "./dist/esm/wallet/*.js",
     "./tx": {
-      "import": "./dist/instance/overRestAPI/tx.js",
-      "types": "./dist/instance/overRestAPI/tx.d.ts"
+      "import": "./dist/esm/instance/overRestAPI/tx.js",
+      "types": "./dist/esm/instance/overRestAPI/tx.d.ts"
     }
   },
   "dependencies": {

@@ -18,26 +18,26 @@
     "test:e2e": "NODE_OPTIONS='--experimental-vm-modules --no-warnings' jest --runInBand --config test/jest.e2e.config.mjs --verbose"
   },
   "type": "module",
-  "module": "./dist/index.js",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "module": "./dist/esm/index.js",
+  "main": "./dist/esm/index.js",
+  "types": "./dist/esm/index.d.ts",
   "files": [
     "dist"
   ],
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "import": "./dist/esm/index.js",
+      "types": "./dist/esm/index.d.ts"
     },
     "./transaction": {
-      "import": "./dist/contract/transaction/index.js",
-      "types": "./dist/contract/transaction/index.d.ts"
+      "import": "./dist/esm/contract/transaction/index.js",
+      "types": "./dist/esm/contract/transaction/index.d.ts"
     },
     "./withdrawal": {
-      "import": "./dist/withdrawal/index.js",
-      "types": "./dist/withdrawal/index.d.ts"
+      "import": "./dist/esm/withdrawal/index.js",
+      "types": "./dist/esm/withdrawal/index.d.ts"
     },
-    "./contract/*": "./dist/contract/*.js"
+    "./contract/*": "./dist/esm/contract/*.js"
   },
   "dependencies": {
     "@types/qs": "6.9.7",

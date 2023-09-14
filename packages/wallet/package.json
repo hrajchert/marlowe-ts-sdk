@@ -17,24 +17,24 @@
     "test": "NODE_OPTIONS='--experimental-vm-modules --no-warnings' jest --config test/jest.unit.config.mjs"
   },
   "type": "module",
-  "module": "./dist/browser/index.js",
-  "main": "./dist/browser/index.js",
-  "types": "./dist/browser/index.d.ts",
+  "module": "./dist/esm/browser/index.js",
+  "main": "./dist/esm/browser/index.js",
+  "types": "./dist/esm/browser/index.d.ts",
   "files": [
     "dist"
   ],
   "exports": {
     "./api": {
-      "import": "./dist/api.js",
-      "types": "./dist/api.d.ts"
+      "import": "./dist/esm/api.js",
+      "types": "./dist/esm/api.d.ts"
     },
     "./browser": {
-      "import": "./dist/browser/index.js",
-      "types": "./dist/browser/index.d.ts"
+      "import": "./dist/esm/browser/index.js",
+      "types": "./dist/esm/browser/index.d.ts"
     },
     "./nodejs": {
-      "import": "./dist/nodejs/index.js",
-      "types": "./dist/nodejs/index.d.ts"
+      "import": "./dist/esm/nodejs/index.js",
+      "types": "./dist/esm/nodejs/index.d.ts"
     }
   },
   "dependencies": {
