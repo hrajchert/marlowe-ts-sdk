@@ -96,3 +96,29 @@ $ scriv create
 edit the new file with appropriate content for your PR and commit it. Read [the documentation for scriv](https://scriv.readthedocs.io/en) to learn more about how to use this tool.
 
 To collect all changelog entries into a single file, execute `std` from the nix shell and run the `build-changelog` script. This command will delete all entries from the `changelog.d` folder and update the `CHANGELOG.md` file.
+
+## Publish
+
+For the moment the SDK is manually published to npm. Task PLT-6939 captures the work to automate this process through the CI.
+
+Before publishing it is convinient to check that the artifacts works as expected. To test this you can pack all the different packages into tarballs using
+
+```bash
+$ npm --workspaces pack --pack-destination dist
+```
+
+And in a separate project you can install the tarballs using a file url when declaring the dependency
+
+```json
+{
+  "dependencies": {
+    "@marlowe.io/runtime-lifecycle": "file:<path-to-dist>/marlowe.io-runtime-lifecycle-0.2.0-alpha-0.tgz",
+  }
+}
+```
+
+TODO instructions on how to manually publish
+
+
+
+

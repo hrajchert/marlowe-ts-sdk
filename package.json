@@ -43,6 +43,7 @@
     "@types/jest": "^26.0.24",
     "@types/json-bigint": "^1.0.1",
     "@types/node": "^18.14.2",
+    "@types/qs": "6.9.7",
     "axios-curlirize": "2.0.0",
     "dotenv": "^16.0.3",
     "eslint": "^7.32.0",

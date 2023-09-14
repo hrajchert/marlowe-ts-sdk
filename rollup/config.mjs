@@ -24,6 +24,7 @@ const packageConfig = (format) => (packageInfo) => ({
   output: {
     dir: path.join(packageInfo.location, 'dist', 'bundled', format),
     format: format,
+    entryFileNames: `[name].${format == "cjs" ? "cjs" : "js"}`,
   },
   plugins,
 });
