@@ -1,0 +1,10 @@
+import * as t from "io-ts/lib/index.js";
+import { iso } from "newtype-ts";
+import { fromNewtype } from "io-ts-types";
+import { split } from "fp-ts/lib/string.js";
+import { pipe } from "fp-ts/lib/function.js";
+import { head } from "fp-ts/lib/ReadonlyNonEmptyArray.js";
+export const ContractId = fromNewtype(t.string);
+export const unContractId = iso().unwrap;
+export const contractId = iso().wrap;
+export const contractIdToTxId = (contractId) => pipe(contractId, unContractId, split("#"), head);

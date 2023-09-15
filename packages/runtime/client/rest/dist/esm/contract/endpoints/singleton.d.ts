@@ -1,0 +1,10 @@
+import * as TE from "fp-ts/lib/TaskEither.js";
+import { AxiosInstance } from "axios";
+import { DecodingError } from "@marlowe.io/adapter/codec";
+import { HexTransactionWitnessSet } from "@marlowe.io/runtime-core";
+import { ContractDetails } from "../details.js";
+import { ContractId } from "@marlowe.io/runtime-core";
+export type GET = (contractId: ContractId) => TE.TaskEither<Error | DecodingError, ContractDetails>;
+export declare const getViaAxios: (axiosInstance: AxiosInstance) => GET;
+export type PUT = (contractId: ContractId, hexTransactionWitnessSet: HexTransactionWitnessSet) => TE.TaskEither<Error, void>;
+export declare const putViaAxios: (axiosInstance: AxiosInstance) => PUT;
