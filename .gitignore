@@ -15,9 +15,7 @@ stats.html
 # created by nix
 result
 source
-# TODO uncomment: just for testing
-#dist
-packages/**/dist
+dist
 test-dist
 
 .cache
