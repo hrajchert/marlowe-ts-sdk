@@ -24,26 +24,32 @@
   "exports": {
     ".": {
       "import": "./dist/esm/index.js",
+      "require": "./dist/bundled/cjs/adapter.cjs",
       "types": "./dist/esm/index.d.ts"
     },
     "./time": {
       "import": "./dist/esm/time.js",
+      "require": "./dist/bundled/cjs/time.cjs",
       "types": "./dist/esm/time.d.ts"
     },
     "./codec": {
       "import": "./dist/esm/codec.js",
+      "require": "./dist/bundled/cjs/codec.cjs",
       "types": "./dist/esm/codec.d.ts"
     },
     "./file": {
       "import": "./dist/esm/file.js",
+      "require": "./dist/bundled/cjs/file.cjs",
       "types": "./dist/esm/file.d.ts"
     },
     "./http": {
       "import": "./dist/esm/http.js",
+      "require": "./dist/bundled/cjs/http.cjs",
       "types": "./dist/esm/http.d.ts"
     },
     "./fp-ts": {
       "import": "./dist/esm/fp-ts.js",
+      "require": "./dist/bundled/cjs/fp-ts.cjs",
       "types": "./dist/esm/fp-ts.d.ts"
     }
   },

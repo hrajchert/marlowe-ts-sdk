@@ -27,6 +27,7 @@
   "exports": {
     ".": {
       "import": "./dist/esm/index.js",
+      "require": "./dist/bundled/cjs/runtime-core.cjs",
       "types": "./dist/esm/index.d.ts"
     }
   },

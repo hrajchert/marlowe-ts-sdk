@@ -18,16 +18,20 @@ function isExternal(id, parentId, isResolved) {
 
 const plugins = [nodePlugin, commonjs(), jsonPlugin(), outputSize(), visualizer()];
 
-const packageConfig = (format) => (packageInfo) => ({
-  input: buildRollupInput(packageInfo),
-  external: isExternal,
-  output: {
-    dir: path.join(packageInfo.location, 'dist', 'bundled', format),
-    format: format,
-    entryFileNames: `[name].${format == "cjs" ? "cjs" : "js"}`,
-  },
-  plugins,
-});
+const packageConfig = (format) => (packageInfo) => {
+  const suffix = format == "cjs" ? "cjs" : "js";
+  return {
+    input: buildRollupInput(packageInfo),
+    external: isExternal,
+    output: {
+      dir: path.join(packageInfo.location, 'dist', 'bundled', format),
+      format: format,
+      entryFileNames: `[name].${suffix}`,
+      chunkFileNames: `[name]-[hash].${suffix}`
+    },
+    plugins,
+  };
+}
 
 const packagesInfo = await getAllPackageInfo();
 

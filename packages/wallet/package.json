@@ -27,14 +27,17 @@
   "exports": {
     "./api": {
       "import": "./dist/esm/api.js",
+      "require": "./dist/bundled/cjs/api.cjs",
       "types": "./dist/esm/api.d.ts"
     },
     "./browser": {
       "import": "./dist/esm/browser/index.js",
+      "require": "./dist/bundled/cjs/browser.cjs",
       "types": "./dist/esm/browser/index.d.ts"
     },
     "./nodejs": {
       "import": "./dist/esm/nodejs/index.js",
+      "require": "./dist/bundled/cjs/nodejs.cjs",
       "types": "./dist/esm/nodejs/index.d.ts"
     }
   },
@@ -43,6 +46,7 @@
     "io-ts": "2.2.20",
     "newtype-ts": "0.3.5",
     "@47ng/codec": "1.1.0",
-    "lucid-cardano": "0.9.4"
+    "lucid-cardano": "0.9.4",
+    "@blockfrost/blockfrost-js": "^5.4.0"
   }
 }
