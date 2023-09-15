@@ -121,5 +121,5 @@ And in a separate project you can install the tarballs using a file url when dec
   }
 }
 ```
-
+TODO [[Publish pre-check]] Local map and this pack instructions
 TODO instructions on how to manually publish

@@ -41,10 +41,10 @@ It is composed of the following [npm workspaces](https://docs.npmjs.com/cli/v7/u
 # Get Started
 
 ## Prerequesites
+
 In order to start working with the Marlowe SDK you need to have a URL to a running instance of the Marlowe Runtime and one of the supported wallet extensions installed in your browser.
 
 To get a running instance of the Runtime, it is recommended to check out the instructions on the [Marlowe Starter Kit](https://github.com/input-output-hk/marlowe-starter-kit)
-
 
 ## Wallet Extensions
 
@@ -54,7 +54,6 @@ To get a running instance of the Runtime, it is recommended to check out the ins
 - [Eternl](https://eternl.io/)
 
 ### Non Compatible
-
 
 - Lace: TODO: add github issue with the current problem
 
@@ -67,6 +66,7 @@ To get a running instance of the Runtime, it is recommended to check out the ins
 ```bash
 npm install @marlowe.io/adapter @marlowe.io/wallet @marlowe.io/language-core-v1 @marlowe.io/runtime @marlowe.io/runtime-core @marlowe.io/runtime-rest-client
 ```
+
 ## Basic usage
 
 ```
@@ -82,7 +82,6 @@ Inside the [pocs folder](./pocs/Readme.md) you can find a set of minimal example
 More elaborate examples can be found in the following repositories:
 
 - [marlowe-payouts](https://github.com/input-output-hk/marlowe-payouts)
-
 
 # Development
 

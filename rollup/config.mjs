@@ -1,10 +1,14 @@
+import path from "path";
+import { fileURLToPath } from "url";
+
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import outputSize from "rollup-plugin-output-size";
 import { visualizer } from "rollup-plugin-visualizer";
-import path from "path";
-import { buildRollupInput, getAllPackageInfo } from "./package-helper.mjs";
 import jsonPlugin from '@rollup/plugin-json';
+
+import { buildRollupInput, getAllPackageInfo } from "./package-helper.mjs";
+import {buildImportMapScript} from "./import-map.mjs";
 
 const nodePlugin = nodeResolve({ browser: true });
 
@@ -35,76 +39,20 @@ const packageConfig = (format) => (packageInfo) => {
 
 const packagesInfo = await getAllPackageInfo();
 
+const projectRoot = path.join(
+  path.dirname(fileURLToPath(import.meta.url)),
+  ".."
+);
+
+await buildImportMapScript(packagesInfo, {type: "local"}, path.join(projectRoot, "dist"));
+await buildImportMapScript(packagesInfo, {type: "jsdelivr-npm", version: "0.2.0-alpha"}, path.join(projectRoot, "dist"));
+// This is for testing purposes only, search [[Publish pre-check]]
+await buildImportMapScript(packagesInfo, {type: "jsdelivr-gh", owner: "hrajchert", version: "081ea368e70b3126a71e076ae11c713b5163aefb"}, path.join(projectRoot, "dist"));
+
+
 const config = [
   ...packagesInfo.map(packageConfig("esm")),
+  // Search [[CommonJS exports problem]]
   ...packagesInfo.map(packageConfig("cjs"))
 ]
-// console.log(JSON.stringify(config, "", 2));
-// process.exit(0);
 export default config;
-
-/*
-
-export default [
-  packageConfig("esm")(
-    {
-      browser: "packages/wallet/dist/browser/index.js",
-      api: "packages/wallet/dist/api.js",
-    },
-    "wallet"
-  ),
-  packageConfig("esm")("packages/runtime/core/dist/index.js", "runtime-core"),
-  packageConfig("esm")(
-    "packages/runtime/lifecycle/dist/index.js",
-    "runtime-lifecycle"
-  ),
-  packageConfig("esm")(
-    {
-      "runtime-rest-client": "packages/runtime/client/rest/dist/index.js",
-      transaction:
-        "packages/runtime/client/rest/dist/contract/transaction/index.js",
-
-      withdrawal: "packages/runtime/client/rest/dist/withdrawal/index.js",
-    },
-    "runtime-rest-client"
-  ),
-  packageConfig("esm")({
-    adapter: "packages/adapter/dist/index.js",
-    "time": "packages/adapter/dist/time.js",
-    codec: "packages/adapter/dist/codec.js",
-    file: "packages/adapter/dist/file.js",
-    http: "packages/adapter/dist/http.js",
-    "fp-ts": "packages/adapter/dist/fp-ts.js",
-    }, "adapter"),
-  packageConfig("esm")(
-    {
-      "language-core-v1":
-        "packages/language/core/v1/dist/semantics/contract/index.js",
-      next: "packages/language/core/v1/dist/semantics/next/index.js",
-      environment: "packages/language/core/v1/dist/semantics/environment.js",
-      state: "packages/language/core/v1/dist/semantics/state.js",
-      token:
-        "packages/language/core/v1/dist/semantics/contract/common/token.js",
-      tokenValue: "packages/language/core/v1/dist/semantics/contract/common/tokenValue.js",
-      version: "packages/language/core/v1/dist/semantics/version.js",
-      examples: "packages/language/core/v1/dist/examples/index.js"
-    },
-    "language-core-v1"
-  ),
-  packageConfig("cjs")(
-    {
-      "language-core-v1":
-        "packages/language/core/v1/dist/semantics/contract/index.js",
-      next: "packages/language/core/v1/dist/semantics/next/index.js",
-      environment: "packages/language/core/v1/dist/semantics/environment.js",
-      state: "packages/language/core/v1/dist/semantics/state.js",
-      token:
-        "packages/language/core/v1/dist/semantics/contract/common/token.js",
-      tokenValue: "packages/language/core/v1/dist/semantics/contract/common/tokenValue.js",
-      version: "packages/language/core/v1/dist/semantics/version.js",
-      examples: "packages/language/core/v1/dist/examples/index.js"
-    },
-    "language-core-v1"
-  ),
-];
-*/

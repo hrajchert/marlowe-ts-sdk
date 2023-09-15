@@ -25,6 +25,11 @@
     "dist"
   ],
   "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/bundled/cjs/index.cjs",
+      "types": "./dist/esm/index.d.ts"
+    },
     "./api": {
       "import": "./dist/esm/api.js",
       "require": "./dist/bundled/cjs/api.cjs",
